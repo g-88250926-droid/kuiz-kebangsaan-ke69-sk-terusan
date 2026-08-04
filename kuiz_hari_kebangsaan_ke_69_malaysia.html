@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuiz Hari Kebangsaan Ke-69 Malaysia</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            flagBlue: '#002B7F',
+            flagRed: '#CC0000',
+            flagYellow: '#FFD100',
+            flagDarkBlue: '#001A4D',
+            goldLight: '#FFF5C2'
+          },
+          fontFamily: {
+            heading: ['Fredoka', 'sans-serif'],
+            body: ['Plus Jakarta Sans', 'sans-serif'],
+            cert: ['Cinzel', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #001f5c 0%, #002B7F 40%, #001233 100%);
+      min-height: 100vh;
+      color: #1e293b;
+    }
+    
+    .font-heading {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      border: 2px solid rgba(255, 209, 0, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+
+    .option-btn {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(0, 43, 127, 0.2);
+    }
+
+    .flag-wave {
+      background: linear-gradient(-45deg, #CC0000, #002B7F, #FFD100, #ffffff);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .pulse-warning {
+      animation: pulseRed 1s infinite alternate;
+    }
+
+    @keyframes pulseRed {
+      from { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0.4); }
+      to { box-shadow: 0 0 0 12px rgba(204, 0, 0, 0); }
+    }
+
+    .cert-aspect-ratio {
+      position: relative;
+      width: 100%;
+      padding-top: 141.42%;
+      overflow: hidden;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .cert-overlay-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      body * {
+        visibility: hidden;
+      }
+      #printable-certificate-wrapper, #printable-certificate-wrapper * {
+        visibility: visible;
+      }
+      #printable-certificate-wrapper {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cert-aspect-ratio {
+        padding-top: 0 !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        border: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen justify-between p-3 sm:p-6 relative overflow-x-hidden">
+
+  <!-- Background Decorative Accents -->
+  <div class="fixed top-0 left-0 w-full h-2 flag-wave z-50"></div>
+  <div class="fixed -top-32 -left-32 w-80 h-80 bg-flagYellow/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="fixed -bottom-32 -right-32 w-80 h-80 bg-flagRed/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="max-w-4xl mx-auto w-full flex justify-between items-center mb-4 sm:mb-6 pt-2 z-10">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 sm:w-12 sm:h-12 bg-flagYellow rounded-2xl flex items-center justify-center text-flagBlue shadow-lg border-2 border-white transform hover:rotate-6 transition">
+        <span class="text-2xl">🇲🇾</span>
+      </div>
+      <div>
+        <h1 class="text-white font-heading text-lg sm:text-2xl font-bold tracking-wide flex items-center gap-2">
+          KUIZ HARI KEBANGSAAN
+          <span class="bg-flagYellow text-flagBlue text-xs px-2 py-0.5 rounded-full font-bold">KE-69</span>
+        </h1>
+        <p class="text-blue-200 text-xs sm:text-sm font-medium">Malaysia Madani: Jiwa Merdeka</p>
+      </div>
+    </div>
+
+    <!-- Sound Control Toggle Buttons -->
+    <div class="flex items-center gap-2">
+      <button id="bgm-btn" onclick="toggleBGM()" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl backdrop-blur-md border border-white/20 transition flex items-center gap-2 text-xs sm:text-sm font-semibold">
+        <i id="bgm-icon" data-lucide="music" class="w-4 h-4 text-flagYellow"></i>
+        <span id="bgm-text" class="hidden sm:inline">Muzik: Off</span>
+      </button>
+
+      <button id="sound-btn" onclick="toggleSound()" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl backdrop-blur-md border border-white/20 transition flex items-center gap-2 text-xs sm:text-sm font-semibold">
+        <i id="sound-icon" data-lucide="volume-2" class="w-4 h-4 text-flagYellow"></i>
+        <span id="sound-text" class="hidden sm:inline">Bunyi: On</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-4xl mx-auto w-full my-auto z-10">
+
+    <!-- WELCOME / START SCREEN -->
+    <div id="welcome-screen" class="glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
+        <i data-lucide="award" class="w-72 h-72 text-flagBlue"></i>
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-flagBlue text-xs sm:text-sm font-bold mb-4">
+        <i data-lucide="sparkles" class="w-4 h-4 text-flagYellow fill-flagYellow"></i>
+        <span>Tahap 2 Sekolah Rendah (Tahun 4, 5 & 6)</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-flagBlue font-heading mb-3">
+        Uji Pengetahuan Sejarah & Patriotisme Anda!
+      </h2>
+      <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed">
+        Sertai kuiz interaktif 20 soalan ini dengan audio ceria! Cabar diri anda dengan masa 30 saat bagi setiap soalan dan kumpulkan markah terbaik untuk menjana **Sijil Pencapaian Hari Kebangsaan (A4 Portrait)**!
+      </p>
+
+      <!-- Key Features Badge Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 text-left">
+        <div class="p-3.5 bg-blue-50/80 rounded-2xl border border-blue-100 flex items-center gap-3">
+          <div class="p-2 bg-flagBlue text-white rounded-xl shrink-0"><i data-lucide="list-checks" class="w-5 h-5"></i></div>
+          <div>
+            <p class="text-[11px] text-slate-500 font-bold uppercase">Soalan</p>
+            <p class="text-xs sm:text-sm font-bold text-slate-800">20 Soalan Rawak</p>
+          </div>
+        </div>
+        <div class="p-3.5 bg-amber-50/80 rounded-2xl border border-amber-100 flex items-center gap-3">
+          <div class="p-2 bg-amber-500 text-white rounded-xl shrink-0"><i data-lucide="timer" class="w-5 h-5"></i></div>
+          <div>
+            <p class="text-[11px] text-slate-500 font-bold uppercase">Masa</p>
+            <p class="text-xs sm:text-sm font-bold text-slate-800">30 Saat / Soalan</p>
+          </div>
+        </div>
+        <div class="p-3.5 bg-emerald-50/80 rounded-2xl border border-emerald-100 flex items-center gap-3">
+          <div class="p-2 bg-emerald-600 text-white rounded-xl shrink-0"><i data-lucide="brain-circuit" class="w-5 h-5"></i></div>
+          <div>
+            <p class="text-[11px] text-slate-500 font-bold uppercase">Aras</p>
+            <p class="text-xs sm:text-sm font-bold text-slate-800">Mudah, Sed & KBAT</p>
+          </div>
+        </div>
+        <div class="p-3.5 bg-red-50/80 rounded-2xl border border-red-100 flex items-center gap-3">
+          <div class="p-2 bg-flagRed text-white rounded-xl shrink-0"><i data-lucide="award" class="w-5 h-5"></i></div>
+          <div>
+            <p class="text-[11px] text-slate-500 font-bold uppercase">Sijil</p>
+            <p class="text-xs sm:text-sm font-bold text-slate-800">Skor 16/20 Ke Atas</p>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startQuiz()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-flagRed to-red-700 hover:from-red-600 hover:to-red-800 text-white text-lg font-bold font-heading rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto">
+        <i data-lucide="play-circle" class="w-6 h-6"></i>
+        <span>Mula Kuiz Sekarang</span>
+      </button>
+    </div>
+
+    <!-- ACTIVE QUIZ SCREEN -->
+    <div id="quiz-screen" class="hidden glass-card rounded-3xl p-5 sm:p-8">
+      
+      <!-- Top Bar: Progress & Timer -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+        
+        <!-- Question Counter & Level Badge -->
+        <div class="flex items-center justify-between sm:justify-start gap-3">
+          <span class="px-3 py-1 bg-flagBlue text-white font-bold font-heading text-xs sm:text-sm rounded-xl">
+            Soalan <span id="current-question-num">1</span> / <span id="total-questions-num">20</span>
+          </span>
+          <span id="level-badge" class="px-3 py-1 bg-amber-100 text-amber-900 border border-amber-300 font-bold text-xs rounded-xl flex items-center gap-1">
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-600 fill-amber-500"></i>
+            <span id="level-text">Mudah</span>
+          </span>
+        </div>
+
+        <!-- Timer Circle/Bar -->
+        <div class="flex items-center gap-3 bg-slate-100 p-2 px-4 rounded-2xl self-end sm:self-auto border border-slate-200">
+          <i data-lucide="clock" id="timer-icon" class="w-5 h-5 text-flagBlue"></i>
+          <span class="text-xs font-bold text-slate-500">Masa:</span>
+          <span id="timer-text" class="font-heading font-bold text-lg text-flagBlue min-w-[32px] text-center">30s</span>
+        </div>
+      </div>
+
+      <!-- Linear Progress Indicator Bar -->
+      <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-6 border border-slate-200">
+        <div id="progress-bar" class="bg-gradient-to-r from-flagBlue via-blue-600 to-flagYellow h-full w-0 transition-all duration-300"></div>
+      </div>
+
+      <!-- Question Text Display -->
+      <div class="mb-6 min-h-[90px] flex items-center">
+        <h3 id="question-text" class="text-lg sm:text-2xl font-bold font-heading text-slate-900 leading-snug">
+          Memuatkan soalan...
+        </h3>
+      </div>
+
+      <!-- Hint Box -->
+      <div id="hint-box" class="hidden mb-5 p-4 bg-amber-50 border border-amber-300 rounded-2xl text-amber-900 text-xs sm:text-sm flex items-start gap-3">
+        <i data-lucide="lightbulb" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+        <div>
+          <p class="font-bold text-amber-950 mb-0.5">Petunjuk Bantuan:</p>
+          <p id="hint-text" class="text-amber-900">Sila semak semula maklumat berkaitan simbol kedaulatan negara.</p>
+        </div>
+      </div>
+
+      <!-- Options Grid -->
+      <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <!-- Footer Action Area inside Quiz -->
+      <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+        <div class="text-xs text-slate-500 font-medium flex items-center gap-1.5">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-flagBlue"></i>
+          <span>Pilih SATU jawapan yang tepat</span>
+        </div>
+        <button id="next-btn" onclick="nextQuestion()" class="hidden px-6 py-2.5 bg-flagBlue hover:bg-blue-900 text-white font-bold font-heading rounded-xl shadow transition flex items-center gap-2">
+          <span>Soalan Seterusnya</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RESULTS & SUMMARY SCREEN -->
+    <div id="result-screen" class="hidden glass-card rounded-3xl p-6 sm:p-10 text-center">
+      
+      <div class="w-20 h-20 bg-gradient-to-tr from-flagYellow to-amber-300 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-xl border-4 border-white">
+        🏆
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-flagBlue font-heading mb-1">
+        Keputusan Kuiz Anda
+      </h2>
+      <p class="text-slate-500 text-xs sm:text-sm mb-6">Hari Kebangsaan Ke-69 Malaysia</p>
+
+      <!-- Score Summary Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div class="bg-blue-50/90 border border-blue-200 p-4 rounded-2xl">
+          <p class="text-[11px] text-slate-500 font-bold uppercase">Markah</p>
+          <p id="res-score" class="text-2xl sm:text-3xl font-extrabold text-flagBlue font-heading">0 / 20</p>
+        </div>
+        <div class="bg-emerald-50/90 border border-emerald-200 p-4 rounded-2xl">
+          <p class="text-[11px] text-slate-500 font-bold uppercase">Peratusan</p>
+          <p id="res-percent" class="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-heading">0%</p>
+        </div>
+        <div class="bg-green-50/90 border border-green-200 p-4 rounded-2xl">
+          <p class="text-[11px] text-slate-500 font-bold uppercase">Betul (Cubaan 1)</p>
+          <p id="res-correct" class="text-2xl sm:text-3xl font-extrabold text-green-600 font-heading">0</p>
+        </div>
+        <div class="bg-red-50/90 border border-red-200 p-4 rounded-2xl">
+          <p class="text-[11px] text-slate-500 font-bold uppercase">Salah / Masa Tamat</p>
+          <p id="res-wrong" class="text-2xl sm:text-3xl font-extrabold text-red-600 font-heading">0</p>
+        </div>
+      </div>
+
+      <!-- Performance Breakdown Analysis by Category -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 mb-6 text-left">
+        <h3 class="font-bold text-slate-800 text-sm sm:text-base mb-3 flex items-center gap-2 font-heading">
+          <i data-lucide="bar-chart-2" class="w-5 h-5 text-flagBlue"></i>
+          <span>Analisis Prestasi Mengikut Aras Soalan</span>
+        </h3>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <span class="text-slate-600">Aras Mudah (Fakta & Simbol Asas)</span>
+              <span id="analysis-easy-text" class="text-flagBlue font-bold">0%</span>
+            </div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div id="analysis-easy-bar" class="bg-emerald-500 h-full w-0 transition-all duration-500"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <span class="text-slate-600">Aras Sederhana (Sejarah & Tokoh)</span>
+              <span id="analysis-medium-text" class="text-flagBlue font-bold">0%</span>
+            </div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div id="analysis-medium-bar" class="bg-amber-500 h-full w-0 transition-all duration-500"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <span class="text-slate-600">Aras KBAT (Penghayatan Patriotisme)</span>
+              <span id="analysis-kbat-text" class="text-flagBlue font-bold">0%</span>
+            </div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div id="analysis-kbat-bar" class="bg-flagBlue h-full w-0 transition-all duration-500"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievement & Motivational Card -->
+      <div class="bg-gradient-to-r from-flagBlue to-blue-900 text-white rounded-2xl p-5 mb-6 text-left shadow-md">
+        <div class="flex items-center gap-2 text-flagYellow font-bold text-xs uppercase tracking-wider mb-1">
+          <i data-lucide="award" class="w-4 h-4"></i> Tahap Pencapaian Anda:
+        </div>
+        <h3 id="res-level-title" class="text-xl sm:text-2xl font-bold font-heading text-white mb-1">
+          CEMERLANG WIRA MERDEKA
+        </h3>
+        <p id="res-encouragement" class="text-blue-100 text-xs sm:text-sm leading-relaxed">
+          Syabas dan tahniah! Anda mempunyai pengetahuan sejarah dan semangat patriotisme yang sangat hebat.
+        </p>
+      </div>
+
+      <!-- CERTIFICATE GENERATOR SECTION -->
+      <div id="cert-section" class="bg-amber-50 border-2 border-flagYellow rounded-2xl p-5 mb-6 text-left">
+        <div class="flex items-center justify-between mb-3 border-b border-amber-200 pb-2">
+          <div class="flex items-center gap-2 text-flagBlue font-bold text-base font-heading">
+            <i data-lucide="award" class="w-6 h-6 text-flagRed"></i>
+            <span>Sijil Digital Pencapaian Hari Kebangsaan (Saiz Portrait A4)</span>
+          </div>
+          
+          <button onclick="toggleCertSettings()" class="text-xs bg-white text-flagBlue border border-blue-200 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+            <span>Tetapan Templat</span>
+          </button>
+        </div>
+
+        <!-- Custom Certificate Settings Drawer -->
+        <div id="cert-settings-drawer" class="hidden bg-white p-4 rounded-xl border border-amber-300 mb-4 text-xs space-y-3">
+          <div class="font-bold text-slate-800 flex items-center justify-between">
+            <span>⚙️ Pelarasan Templat Sijil A4 Portrait</span>
+            <span class="text-[10px] text-slate-500 font-normal">Format PNG/JPG (A4 Portrait)</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">1. Muat Naik Templat Imej A4 Portrait Anda:</label>
+              <div class="flex gap-2">
+                <input type="file" id="custom-cert-upload" accept="image/*" onchange="handleCertUpload(event)" class="hidden">
+                <button onclick="document.getElementById('custom-cert-upload').click()" class="px-3 py-2 bg-blue-50 hover:bg-blue-100 text-flagBlue border border-blue-300 font-bold rounded-lg flex items-center gap-1">
+                  <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                  <span>Muat Naik Templat Imej</span>
+                </button>
+                <button onclick="resetCertTemplate()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold rounded-lg">
+                  Reset Asal
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">2. Mod Paparan Sijil:</label>
+              <select id="cert-mode-select" onchange="changeCertMode(this.value)" class="w-full p-2 border rounded-lg font-medium text-slate-800">
+                <option value="default">Sijil Bawaan Sistem (HTML/CSS A4 Portrait)</option>
+                <option value="image">Templat Imej Sendiri (Pilihan Anda)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Detailed Slider Controls -->
+          <div class="pt-3 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Pelarasan Kedudukan Nama:</label>
+              <input type="range" id="cert-name-pos-slider" min="15" max="75" value="42" oninput="adjustNamePosition(this.value)" class="w-full accent-flagBlue">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Pelarasan Kedudukan Markah:</label>
+              <input type="range" id="cert-score-pos-slider" min="25" max="85" value="62" oninput="adjustScorePosition(this.value)" class="w-full accent-flagBlue">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Pelarasan Saiz Tulisan Nama:</label>
+              <input type="range" id="cert-font-size-slider" min="16" max="48" value="28" oninput="adjustNameFontSize(this.value)" class="w-full accent-flagBlue">
+            </div>
+          </div>
+        </div>
+
+        <!-- Eligible for Certificate -->
+        <div id="cert-eligible-box" class="hidden space-y-3">
+          <p class="text-xs sm:text-sm text-slate-700">
+            Tahniah! Anda berjaya mendapat markah <strong class="text-emerald-600 font-bold">16 soalan atau lebih (80%+)</strong>. Masukkan nama anda untuk menjana Sijil Digital rasmi.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input type="text" id="student-name" placeholder="Masukkan Nama Penuh Murid" class="flex-grow px-4 py-3 rounded-xl border-2 border-slate-300 focus:border-flagBlue focus:outline-none text-slate-800 font-semibold text-sm">
+            <button onclick="generateCertificate()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center justify-center gap-2 shrink-0">
+              <i data-lucide="printer" class="w-5 h-5"></i>
+              <span>Jana & Cetak Sijil</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Not Eligible for Certificate -->
+        <div id="cert-ineligible-box" class="hidden bg-white/80 p-4 rounded-xl border border-amber-200">
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            🔒 <strong>Kelayakan Sijil:</strong> Sijil Pencapaian hanya diberikan kepada peserta yang berjaya menjawab sekurang-kurangnya <strong>16 daripada 20 soalan (80%)</strong> dengan betul pada cubaan pertama.
+          </p>
+          <p class="text-xs text-flagRed font-bold mt-2">
+            Sila tekan butang "Cuba Sekali Lagi" di bawah untuk meningkatkan markah anda!
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button onclick="restartQuiz()" class="px-6 py-3.5 bg-gradient-to-r from-flagRed to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold font-heading rounded-xl shadow-md transition flex items-center justify-center gap-2">
+          <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+          <span>Cuba Sekali Lagi</span>
+        </button>
+        <button onclick="toggleReviewModal()" class="px-6 py-3.5 bg-white text-flagBlue border-2 border-flagBlue hover:bg-blue-50 font-bold font-heading rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+          <i data-lucide="file-text" class="w-5 h-5"></i>
+          <span>Semak Status Soalan</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- REVIEW MODAL -->
+  <div id="review-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6">
+    <div class="glass-card bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl border-4 border-flagYellow overflow-hidden">
+      <div class="p-5 bg-flagBlue text-white flex justify-between items-center shrink-0">
+        <div class="flex items-center gap-2">
+          <i data-lucide="check-square" class="w-6 h-6 text-flagYellow"></i>
+          <h3 class="font-bold text-lg font-heading">Ringkasan Status Jawapan</h3>
+        </div>
+        <button onclick="toggleReviewModal()" class="text-white hover:text-flagYellow transition">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+      <div id="review-list" class="p-5 overflow-y-auto space-y-3 text-left divide-y divide-slate-100">
+      </div>
+      <div class="p-4 bg-slate-50 border-t border-slate-200 text-right shrink-0">
+        <button onclick="toggleReviewModal()" class="px-6 py-2.5 bg-flagBlue text-white font-bold rounded-xl hover:bg-blue-900 transition">
+          Tutup Semakan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIGITAL CERTIFICATE MODAL (A4 PORTRAIT) -->
+  <div id="cert-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-4 sm:p-6 text-center relative border-8 border-flagBlue shadow-2xl my-auto">
+      
+      <div id="printable-certificate-wrapper" class="w-full overflow-hidden rounded-xl bg-white">
+        
+        <!-- MODE A: DEFAULT HTML/CSS CERTIFICATE LAYOUT -->
+        <div id="cert-default-layout" class="bg-white p-6 sm:p-10 border-8 border-double border-flagBlue relative flex flex-col justify-between min-h-[750px] shadow-sm">
+          
+          <div class="absolute inset-2 border-2 border-flagYellow pointer-events-none"></div>
+
+          <div>
+            <div class="flex justify-center items-center gap-2 mb-2">
+              <span class="text-3xl">🇲🇾</span>
+              <h3 class="text-flagRed font-heading font-extrabold text-xs sm:text-sm tracking-widest uppercase">
+                SAMBUTAN HARI KEBANGSAAN KE-69 MALAYSIA
+              </h3>
+              <span class="text-3xl">🇲🇾</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black text-flagBlue font-cert uppercase tracking-wider my-3">
+              SIJIL PENCAPAIAN DIGITAL
+            </h1>
+            <div class="w-24 h-1 bg-flagYellow mx-auto mb-4"></div>
+            <p class="text-slate-600 text-xs sm:text-sm uppercase tracking-widest font-bold">Dengan ini disahkan bahawa</p>
+          </div>
+
+          <!-- Nama Murid diletakkan secara simetri di bawah "Dengan ini disahkan bahawa" -->
+          <div class="my-3 py-3 border-b-2 border-t-2 border-flagYellow/40 max-w-lg mx-auto w-full">
+            <h2 id="cert-student-name" class="text-2xl sm:text-4xl font-extrabold font-cert text-flagBlue capitalize tracking-wide text-center">
+              [Nama Murid]
+            </h2>
+          </div>
+
+          <!-- Frasa "Atas pencapaian cemerlang" -->
+          <div class="my-2 text-center">
+            <p class="text-slate-700 text-sm sm:text-base font-bold">
+              Atas pencapaian cemerlang dalam
+            </p>
+            <p class="text-flagBlue font-extrabold font-heading text-base sm:text-lg mt-0.5">
+              Kuiz Interaktif Hari Kebangsaan Ke-69 Malaysia
+            </p>
+            <p class="text-slate-500 text-xs font-semibold mt-0.5">(Tahap 2 Sekolah Rendah)</p>
+          </div>
+
+          <!-- Markah diletakkan secara simetri di bawah "Atas pencapaian cemerlang" -->
+          <div class="my-3 p-4 bg-amber-50/90 border-2 border-flagYellow rounded-2xl flex justify-center items-center gap-8 max-w-md mx-auto w-full shadow-sm">
+            <div class="text-center">
+              <p class="text-[10px] text-amber-900 font-bold uppercase tracking-wider mb-0.5">MARKAH</p>
+              <p id="cert-score-display" class="text-2xl sm:text-3xl font-black text-flagBlue font-heading">18 / 20</p>
+            </div>
+            <div class="h-10 w-0.5 bg-amber-300"></div>
+            <div class="text-center">
+              <p class="text-[10px] text-amber-900 font-bold uppercase tracking-wider mb-0.5">PERATUSAN</p>
+              <p id="cert-percent-display" class="text-2xl sm:text-3xl font-black text-emerald-600 font-heading">90%</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-end text-left pt-6 border-t border-slate-200 text-xs text-slate-600">
+            <div>
+              <p class="mb-1"><strong>Tarikh:</strong> <span id="cert-date">31 Ogos 2026</span></p>
+              <p><strong>Kategori:</strong> Tahap 2 Sekolah Rendah</p>
+            </div>
+            <div class="text-center">
+              <div class="w-14 h-14 bg-gradient-to-tr from-flagYellow to-amber-400 rounded-full flex items-center justify-center text-flagBlue font-bold mx-auto mb-1 shadow border-2 border-white">
+                🇲🇾
+              </div>
+              <p class="font-bold text-[9px] uppercase text-flagBlue">Anugerah Wira Merdeka</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- MODE B: CUSTOM IMAGE OVERLAY CERTIFICATE LAYOUT -->
+        <div id="cert-image-layout" class="hidden cert-aspect-ratio shadow-inner relative rounded-xl border border-slate-300 bg-contain bg-center bg-no-repeat w-full">
+          <div id="cert-overlay-wrapper" class="cert-overlay-content p-0 w-full h-full relative">
+            
+            <!-- Ruangan Nama Murid (Atas Imposisi Templat) -->
+            <div id="cert-img-name-box" class="absolute left-0 right-0 w-full text-center px-6 z-20" style="top: 42%;">
+              <h2 id="cert-img-student-name" class="font-extrabold font-heading text-flagBlue capitalize tracking-wide drop-shadow-md" style="font-size: 32px; line-height: 1.2; text-shadow: 0px 2px 4px rgba(255,255,255,0.8);">
+                [NAMA MURID]
+              </h2>
+            </div>
+
+            <!-- Ruangan Markah Murid (Atas Imposisi Templat) -->
+            <div id="cert-img-score-box" class="absolute left-0 right-0 w-full text-center px-6 z-20" style="top: 62%;">
+              <p id="cert-img-score" class="font-black text-flagRed font-heading tracking-wider drop-shadow-sm" style="font-size: 24px; text-shadow: 0px 2px 4px rgba(255,255,255,0.8);">
+                MARKAH: 18 / 20 (90%)
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="no-print mt-6 flex justify-center gap-3">
+        <button onclick="window.print()" class="px-6 py-3 bg-flagBlue hover:bg-blue-900 text-white font-bold rounded-xl shadow transition flex items-center gap-2">
+          <i data-lucide="printer" class="w-5 h-5"></i>
+          <span>Cetak / Simpan PDF (A4 Portrait)</span>
+        </button>
+        <button onclick="closeCertModal()" class="px-6 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center text-white/70 text-xs py-4 z-10">
+    <p>© 2026 Kuiz Interaktif Hari Kebangsaan Ke-69 Malaysia • Dibina Untuk Sekolah Rendah</p>
+  </footer>
+
+  <script>
+    let audioCtx = null;
+    let isSoundOn = true;
+    let isBgmOn = false;
+    let bgmInterval = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // Play synthesized cheerful sounds using Web Audio API
+    function playSound(type) {
+      if (!isSoundOn) return;
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const now = ctx.currentTime;
+
+      if (type === 'click') {
+        // Crisp cute pop sound
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.08);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } 
+      else if (type === 'start') {
+        // Cheerful ascending arpeggio (C5 -> E5 -> G5 -> C6)
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          gain.gain.setValueAtTime(0, now + idx * 0.08);
+          gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.08 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.25);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.25);
+        });
+      } 
+      else if (type === 'correct') {
+        // Bright cheerful victory chord (G5 -> C6 -> E6 -> G6 flourish)
+        const chord = [783.99, 1046.50, 1318.51, 1567.98];
+        chord.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+          gain.gain.setValueAtTime(0.3, now + idx * 0.07);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.4);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.07);
+          osc.stop(now + idx * 0.07 + 0.4);
+        });
+      } 
+      else if (type === 'wrong') {
+        // Playful cartoon downward wobble
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(280, now);
+        osc.frequency.linearRampToValueAtTime(140, now + 0.3);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      } 
+      else if (type === 'tick') {
+        // Soft wooden clock tick
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(800, now);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.04);
+      } 
+      else if (type === 'finish') {
+        // Grand victory celebratory jingle
+        const tune = [
+          {f: 523.25, d: 0.12}, {f: 659.25, d: 0.12}, {f: 783.99, d: 0.12},
+          {f: 1046.50, d: 0.25}, {f: 880.00, d: 0.15}, {f: 1046.50, d: 0.5}
+        ];
+        let delay = 0;
+        tune.forEach(note => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(note.f, now + delay);
+          gain.gain.setValueAtTime(0.3, now + delay);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + delay + note.d);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + delay);
+          osc.stop(now + delay + note.d);
+          delay += note.d * 0.85;
+        });
+      }
+    }
+
+    // Toggle Sound Effects
+    function toggleSound() {
+      isSoundOn = !isSoundOn;
+      const btn = document.getElementById('sound-btn');
+      const text = document.getElementById('sound-text');
+      const icon = document.getElementById('sound-icon');
+
+      if (isSoundOn) {
+        text.innerText = "Bunyi: On";
+        btn.classList.replace('bg-white/5', 'bg-white/10');
+        icon.setAttribute('data-lucide', 'volume-2');
+        playSound('click');
+      } else {
+        text.innerText = "Bunyi: Off";
+        btn.classList.replace('bg-white/10', 'bg-white/5');
+        icon.setAttribute('data-lucide', 'volume-x');
+      }
+      lucide.createIcons();
+    }
+
+    // Toggle Cheerful Background Music Loop
+    function toggleBGM() {
+      isBgmOn = !isBgmOn;
+      const btn = document.getElementById('bgm-btn');
+      const text = document.getElementById('bgm-text');
+
+      if (isBgmOn) {
+        text.innerText = "Muzik: On";
+        btn.classList.add('bg-flagYellow/20', 'text-flagYellow');
+        startBGMLoop();
+      } else {
+        text.innerText = "Muzik: Off";
+        btn.classList.remove('bg-flagYellow/20', 'text-flagYellow');
+        stopBGMLoop();
+      }
+      playSound('click');
+    }
+
+    function startBGMLoop() {
+      stopBGMLoop();
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const bgmNotes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63];
+      let step = 0;
+
+      bgmInterval = setInterval(() => {
+        if (!isBgmOn) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(bgmNotes[step % bgmNotes.length], now);
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.35);
+
+        step++;
+      }, 400);
+    }
+
+    function stopBGMLoop() {
+      if (bgmInterval) {
+        clearInterval(bgmInterval);
+        bgmInterval = null;
+      }
+    }
+
+    const rawQuestionsData = [
+      {
+        id: 1,
+        level: "Mudah",
+        question: "Apakah tarikh bersejarah kemerdekaan Persekutuan Tanah Melayu?",
+        options: ["31 Ogos 1957", "16 September 1963", "31 Ogos 1963", "1 Mei 1957"],
+        answerIndex: 0,
+        hint: "Tarikh ini diisytiharkan di Stadium Merdeka, Kuala Lumpur pada 31 Ogos 1957."
+      },
+      {
+        id: 2,
+        level: "Mudah",
+        question: "Siapakah yang digelar sebagai 'Bapa Kemerdekaan Malaysia'?",
+        options: ["Tunku Abdul Rahman Putra Al-Haj", "Tun Abdul Razak Hussein", "Tun Hussein Onn", "Tun Dr. Mahathir Mohamad"],
+        answerIndex: 0,
+        hint: "Beliau merupakan Perdana Menteri Malaysia yang pertama."
+      },
+      {
+        id: 3,
+        level: "Mudah",
+        question: "Apakah nama bendera kebangsaan Malaysia?",
+        options: ["Jalur Gemilang", "Sang Saka Merah Putih", "Jalur Merdeka", "Bintang Timur"],
+        answerIndex: 0,
+        hint: "Nama bendera ini mula diisytiharkan secara rasmi pada 31 Ogos 1997."
+      },
+      {
+        id: 4,
+        level: "Mudah",
+        question: "Berapakah jumlah jalur merah dan putih pada Jalur Gemilang?",
+        options: ["14 jalur", "12 jalur", "10 jalur", "16 jalur"],
+        answerIndex: 0,
+        hint: "Jalur ini mewakili 13 buah negeri di Malaysia dan 1 Wilayah Persekutuan."
+      },
+      {
+        id: 5,
+        level: "Mudah",
+        question: "Apakah bunga kebangsaan bagi negara Malaysia?",
+        options: ["Bunga Raya", "Bunga Orkid", "Bunga Mawar", "Bunga Cempaka"],
+        answerIndex: 0,
+        hint: "Bunga merah berpetak 5 ini melambangkan 5 prinsip Rukun Negara."
+      },
+      {
+        id: 6,
+        level: "Mudah",
+        question: "Apakah lagu kebangsaan negara Malaysia?",
+        options: ["Negaraku", "Keranamu Malaysia", "Jalur Gemilang", "Setia"],
+        answerIndex: 0,
+        hint: "Lagu ini diubah suai daripada lagu negeri Perak iaitu 'Terang Bulan'."
+      },
+      {
+        id: 7,
+        level: "Mudah",
+        question: "Berapakah bucu yang ada pada Bintang Persekutuan di Jalur Gemilang?",
+        options: ["14 bucu", "12 bucu", "10 bucu", "15 bucu"],
+        answerIndex: 0,
+        hint: "Bucu-bucu ini melambangkan gabungan 13 buah negeri dan Kerajaan Persekutuan."
+      },
+      {
+        id: 8,
+        level: "Sederhana",
+        question: "Di manakah pengisytiharan tarikh kemerdekaan Persekutuan Tanah Melayu pertama kali dibuat selepas rombongan London pulang?",
+        options: ["Padang Pahlawan, Bandar Hilir, Melaka", "Stadium Merdeka, Kuala Lumpur", "Dataran Merdeka, Kuala Lumpur", "Padang Kota, Pulau Pinang"],
+        answerIndex: 0,
+        hint: "Pengisytiharan awal dibuat pada 20 Februari 1956 di bumi bersejarah Melaka."
+      },
+      {
+        id: 9,
+        level: "Sederhana",
+        question: "Apakah nama tempat di mana laungan 'MERDEKA' dibuat sebanyak 7 kali pada 31 Ogos 1957?",
+        options: ["Stadium Merdeka, Kuala Lumpur", "Stadium Bukit Jalil", "Masjid Negara", "Parlimen Malaysia"],
+        answerIndex: 0,
+        hint: "Stadium bersejarah ini dibina khas untuk peristiwa pengisytiharan kemerdekaan."
+      },
+      {
+        id: 10,
+        level: "Sederhana",
+        question: "Siapakah pencipta reka bentuk asal bendera Persekutuan Tanah Melayu?",
+        options: ["Mohamed Bin Hamzah", "Saiful Bahri", "Tun Abdul Razak", "Tan Cheng Lock"],
+        answerIndex: 0,
+        hint: "Beliau merupakan seorang arkitek Jabatan Kerja Raya di Johor."
+      },
+      {
+        id: 11,
+        level: "Sederhana",
+        question: "Apakah peranan utama tokoh pejuang tempatan Mat Kilau di Pahang?",
+        options: ["Menentang pencerobohan dan campur tangan British", "Merekabentuk bendera negara", "Menulis lagu Negaraku", "Menjadi Yang di-Pertuan Agong"],
+        answerIndex: 0,
+        hint: "Beliau berjuang bersama Dato' Bahaman menentang penjajah British."
+      },
+      {
+        id: 12,
+        level: "Sederhana",
+        question: "Apakah prinsip pertama dalam Rukun Negara?",
+        options: ["Kepercayaan kepada Tuhan", "Kesetiaan kepada Raja dan Negara", "Keluhuran Perlembagaan", "Kedaulatan Undang-Undang"],
+        answerIndex: 0,
+        hint: "Prinsip ini menegaskan bahawa agama merupakan pegangan utama rakyat Malaysia."
+      },
+      {
+        id: 13,
+        level: "Sederhana",
+        question: "Apakah haiwan negara yang menjadi lambang keberanian pada Jata Negara Malaysia?",
+        options: ["Harimau Malaya", "Gajah", "Badak Sumbu", "Helang"],
+        answerIndex: 0,
+        hint: "Dua ekor haiwan ini menyokong perisai pada Jata Negara."
+      },
+      {
+        id: 14,
+        level: "Sederhana",
+        question: "Apakah tema Sambutan Hari Kebangsaan Malaysia yang memfokuskan kepada keharmonian rakyat?",
+        options: ["Malaysia Madani: Jiwa Merdeka", "Keranamu Malaysia", "Malaysia Boleh", "Sehati Sejiwa"],
+        answerIndex: 0,
+        hint: "Tema ini menekankan pembentukan masyarakat bernilai murni dan bersatu padu."
+      },
+      {
+        id: 15,
+        level: "KBAT",
+        question: "Mengapakah kita perlu mengibarkan Jalur Gemilang dengan penuh rasa hormat dan tertib?",
+        options: [
+          "Kerana bendera melambangkan kedaulatan, maruah dan identiti negara",
+          "Untuk memenuhi syarat pertandingan kediaman keceriaan sahaja",
+          "Supaya bendera tidak kotor terkena habuk",
+          "Kerana arahan rasmi daripada pihak sekolah semata-mata"
+        ],
+        answerIndex: 0,
+        hint: "Kedaulatan negara tercermin melalui cara rakyat menghormati simbol kebangsaan."
+      },
+      {
+        id: 16,
+        level: "KBAT",
+        question: "Bagaimanakah seorang murid sekolah rendah dapat menunjukkan semangat patriotisme di sekolah?",
+        options: [
+          "Menghormati lagu Negaraku dan tekun belajar untuk kemajuan negara",
+          "Mengumpul setem berunsur sejarah di dalam bilik sahaja",
+          "Membeli banyak bendera plastik semasa musim kemerdekaan",
+          "Menghafal nama-nama menteri tanpa memahami peranan mereka"
+        ],
+        answerIndex: 0,
+        hint: "Patriotisme dizahirkan melalui amalan berdisiplin dan berusaha memajukan diri."
+      },
+      {
+        id: 17,
+        level: "KBAT",
+        question: "Apakah ikhtiar terbaik untuk mengekalkan keharmonian dalam masyarakat berbilang kaum di Malaysia?",
+        options: [
+          "Amalkan sikap bertoleransi, saling menghormati dan mengamalkan nilai Rukun Negara",
+          "Mengagungkan kaum sendiri sahaja dalam pelbagai urusan",
+          "Mengelakkan diri daripada bergaul dengan rakan berlainan kaum",
+          "Menyebarkan maklumat tidak pasti di media sosial"
+        ],
+        answerIndex: 0,
+        hint: "Perpaduan kaum menjadi asas kukuh ketahanan dan keamanan negara."
+      },
+      {
+        id: 18,
+        level: "KBAT",
+        question: "Mengapakah generasi muda perlu mempelajari sejarah perjuangan kemerdekaan negara?",
+        options: [
+          "Agar menghargai nikmat keamanan dan tidak mengulangi kesilapan lalu",
+          "Sekadar untuk lulus ujian peperiksaan di sekolah",
+          "Untuk memuji jasa penjajah barat",
+          "Supaya dapat memenangi kuiz sahaja"
+        ],
+        answerIndex: 0,
+        hint: "Mengetahui sejarah membina rasa syukur dan kesedaran memelihara kemerdekaan."
+      },
+      {
+        id: 19,
+        level: "KBAT",
+        question: "Apakah ikhtiar yang sewajarnya dilakukan jika anda ternampak Jalur Gemilang terjatuh di atas tanah?",
+        options: [
+          "Mengambil dan membersihkannya dengan cermat sebagai tanda hormat",
+          "Membiarkannya sahaja kerana bukan kepunyaan sendiri",
+          "Langkah di atasnya tanpa mengendahkannya",
+          "Mengambil gambar untuk ditularkan di Internet"
+        ],
+        answerIndex: 0,
+        hint: "Sikap prihatin terhadap lambang negara mencerminkan keperibadian patriotik."
+      },
+      {
+        id: 20,
+        level: "KBAT",
+        question: "Apakah ikhtibar utama daripada peristiwa pembentukan Malaysia dan kemerdekaan negara?",
+        options: [
+          "Muafakat dan perpaduan kunci utama kejayaan dan kedaulatan negara",
+          "Sesuatu kejayaan hanya boleh dicapai dengan kekerasan",
+          "Bantuan kuasa luar sentiasa diperlukan untuk maju",
+          "Keamanan akan kekal tanpa perlu dipelihara"
+        ],
+        answerIndex: 0,
+        hint: "Peribahasa 'Bulat air kerana pembetung, bulat manusia kerana muafakat' menerangkan perkara ini."
+      }
+    ];
+
+    let quizQuestions = [];
+    let currentQuestionIndex = 0;
+    let scoreFirstAttempt = 0;
+    let userAnswers = [];
+    let timerInterval = null;
+    let timeLeft = 30;
+
+    let CUSTOM_CERT_IMAGE_URL = null; 
+    let certDisplayMode = 'default';
+
+    // Helper: Utility Array Shuffle Algorithm
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Slider Adjustments for Custom Certificate Template
+    function adjustNamePosition(val) {
+      const nameBox = document.getElementById('cert-img-name-box');
+      if (nameBox) nameBox.style.top = val + '%';
+    }
+
+    function adjustScorePosition(val) {
+      const scoreBox = document.getElementById('cert-img-score-box');
+      if (scoreBox) scoreBox.style.top = val + '%';
+    }
+
+    function adjustNameFontSize(val) {
+      const nameElem = document.getElementById('cert-img-student-name');
+      if (nameElem) nameElem.style.fontSize = val + 'px';
+    }
+
+    // Custom Certificate Template Settings
+    function toggleCertSettings() {
+      playSound('click');
+      const drawer = document.getElementById('cert-settings-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function handleCertUpload(event) {
+      playSound('click');
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          CUSTOM_CERT_IMAGE_URL = e.target.result;
+          certDisplayMode = 'image';
+          document.getElementById('cert-mode-select').value = 'image';
+          alert("Templat sijil imej berjaya dimuat naik!");
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function resetCertTemplate() {
+      playSound('click');
+      CUSTOM_CERT_IMAGE_URL = null;
+      certDisplayMode = 'default';
+      document.getElementById('cert-mode-select').value = 'default';
+      document.getElementById('custom-cert-upload').value = '';
+      alert("Templat sijil telah diset semula ke tetapan bawaan sistem.");
+    }
+
+    function changeCertMode(mode) {
+      playSound('click');
+      certDisplayMode = mode;
+      if (mode === 'image' && !CUSTOM_CERT_IMAGE_URL) {
+        alert("Sila muat naik fail imej templat sijil anda terlebih dahulu.");
+      }
+    }
+
+    function startQuiz() {
+      playSound('start');
+      
+      quizQuestions = rawQuestionsData.map(q => {
+        const optionsWithOriginal = q.options.map((opt, idx) => ({
+          text: opt,
+          isCorrect: idx === q.answerIndex
+        }));
+        const shuffledOpts = shuffleArray(optionsWithOriginal);
+        
+        return {
+          id: q.id,
+          level: q.level,
+          question: q.question,
+          hint: q.hint,
+          options: shuffledOpts
+        };
+      });
+
+      quizQuestions = shuffleArray(quizQuestions);
+
+      currentQuestionIndex = 0;
+      scoreFirstAttempt = 0;
+      userAnswers = [];
+
+      document.getElementById('welcome-screen').classList.add('hidden');
+      document.getElementById('result-screen').classList.add('hidden');
+      document.getElementById('quiz-screen').classList.remove('hidden');
+
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      clearInterval(timerInterval);
+      const q = quizQuestions[currentQuestionIndex];
+
+      document.getElementById('current-question-num').innerText = currentQuestionIndex + 1;
+      document.getElementById('total-questions-num').innerText = quizQuestions.length;
+      
+      const progressPercent = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+      document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+      const levelBadge = document.getElementById('level-badge');
+      const levelText = document.getElementById('level-text');
+      levelText.innerText = q.level;
+
+      if (q.level === "Mudah") {
+        levelBadge.className = "px-3 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs rounded-xl flex items-center gap-1";
+      } else if (q.level === "Sederhana") {
+        levelBadge.className = "px-3 py-1 bg-amber-100 text-amber-900 border border-amber-300 font-bold text-xs rounded-xl flex items-center gap-1";
+      } else {
+        levelBadge.className = "px-3 py-1 bg-blue-100 text-blue-900 border border-blue-300 font-bold text-xs rounded-xl flex items-center gap-1";
+      }
+
+      document.getElementById('question-text').innerText = q.question;
+      document.getElementById('hint-box').classList.add('hidden');
+      document.getElementById('next-btn').classList.add('hidden');
+
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      const labels = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.onclick = () => handleSelectOption(idx);
+        btn.className = `option-btn w-full text-left p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-flagBlue hover:bg-blue-50/50 flex items-center gap-3 group transition`;
+        btn.innerHTML = `
+          <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 font-bold font-heading flex items-center justify-center border border-slate-200 group-hover:bg-flagBlue group-hover:text-white transition shrink-0">
+            ${labels[idx]}
+          </span>
+          <span class="font-semibold text-slate-800 text-sm sm:text-base leading-snug">${opt.text}</span>
+        `;
+        optionsContainer.appendChild(btn);
+      });
+
+      startTimer();
+      lucide.createIcons();
+    }
+
+    function startTimer() {
+      timeLeft = 30;
+      updateTimerUI();
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerUI();
+
+        if (timeLeft <= 5 && timeLeft > 0) {
+          playSound('tick');
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          handleTimeout();
+        }
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      const timerText = document.getElementById('timer-text');
+      const timerIcon = document.getElementById('timer-icon');
+      timerText.innerText = `${timeLeft}s`;
+
+      if (timeLeft <= 5) {
+        timerText.className = "font-heading font-bold text-lg text-flagRed pulse-warning rounded-lg px-2";
+        timerIcon.className = "w-5 h-5 text-flagRed animate-bounce";
+      } else {
+        timerText.className = "font-heading font-bold text-lg text-flagBlue";
+        timerIcon.className = "w-5 h-5 text-flagBlue";
+      }
+    }
+
+    function handleSelectOption(selectedIndex) {
+      clearInterval(timerInterval);
+      const q = quizQuestions[currentQuestionIndex];
+      const selectedOpt = q.options[selectedIndex];
+      const isCorrect = selectedOpt.isCorrect;
+
+      const buttons = document.querySelectorAll('.option-btn');
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (isCorrect) {
+        playSound('correct');
+        scoreFirstAttempt++;
+        
+        buttons[selectedIndex].className = "option-btn w-full text-left p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 flex items-center gap-3";
+        buttons[selectedIndex].querySelector('span').className = "w-8 h-8 rounded-xl bg-emerald-500 text-white font-bold font-heading flex items-center justify-center shrink-0";
+
+        userAnswers.push({
+          questionId: q.id,
+          level: q.level,
+          questionText: q.question,
+          isCorrect: true,
+          status: "Betul"
+        });
+
+      } else {
+        playSound('wrong');
+        
+        buttons[selectedIndex].className = "option-btn w-full text-left p-4 rounded-2xl border-2 border-red-500 bg-red-50 flex items-center gap-3";
+        buttons[selectedIndex].querySelector('span').className = "w-8 h-8 rounded-xl bg-red-500 text-white font-bold font-heading flex items-center justify-center shrink-0";
+
+        document.getElementById('hint-text').innerText = q.hint;
+        document.getElementById('hint-box').classList.remove('hidden');
+
+        userAnswers.push({
+          questionId: q.id,
+          level: q.level,
+          questionText: q.question,
+          isCorrect: false,
+          status: "Salah"
+        });
+      }
+
+      document.getElementById('next-btn').classList.remove('hidden');
+    }
+
+    function handleTimeout() {
+      playSound('wrong');
+      const q = quizQuestions[currentQuestionIndex];
+      const buttons = document.querySelectorAll('.option-btn');
+      buttons.forEach(btn => btn.disabled = true);
+
+      document.getElementById('hint-text').innerText = `Masa tamat! ${q.hint}`;
+      document.getElementById('hint-box').classList.remove('hidden');
+
+      userAnswers.push({
+        questionId: q.id,
+        level: q.level,
+        questionText: q.question,
+        isCorrect: false,
+        status: "Masa Tamat"
+      });
+
+      document.getElementById('next-btn').classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+      playSound('click');
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizQuestions.length) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      playSound('finish');
+      document.getElementById('quiz-screen').classList.add('hidden');
+      document.getElementById('result-screen').classList.remove('hidden');
+
+      const totalQuestions = quizQuestions.length;
+      const percentage = Math.round((scoreFirstAttempt / totalQuestions) * 100);
+
+      document.getElementById('res-score').innerText = `${scoreFirstAttempt} / ${totalQuestions}`;
+      document.getElementById('res-percent').innerText = `${percentage}%`;
+      document.getElementById('res-correct').innerText = scoreFirstAttempt;
+      document.getElementById('res-wrong').innerText = totalQuestions - scoreFirstAttempt;
+
+      const easyQuestions = userAnswers.filter(a => a.level === "Mudah");
+      const mediumQuestions = userAnswers.filter(a => a.level === "Sederhana");
+      const kbatQuestions = userAnswers.filter(a => a.level === "KBAT");
+
+      const easyCorrect = easyQuestions.filter(a => a.isCorrect).length;
+      const mediumCorrect = mediumQuestions.filter(a => a.isCorrect).length;
+      const kbatCorrect = kbatQuestions.filter(a => a.isCorrect).length;
+
+      const easyPct = easyQuestions.length ? Math.round((easyCorrect / easyQuestions.length) * 100) : 0;
+      const mediumPct = mediumQuestions.length ? Math.round((mediumCorrect / mediumQuestions.length) * 100) : 0;
+      const kbatPct = kbatQuestions.length ? Math.round((kbatCorrect / kbatQuestions.length) * 100) : 0;
+
+      document.getElementById('analysis-easy-text').innerText = `${easyPct}% (${easyCorrect}/${easyQuestions.length})`;
+      document.getElementById('analysis-easy-bar').style.width = `${easyPct}%`;
+
+      document.getElementById('analysis-medium-text').innerText = `${mediumPct}% (${mediumCorrect}/${mediumQuestions.length})`;
+      document.getElementById('analysis-medium-bar').style.width = `${mediumPct}%`;
+
+      document.getElementById('analysis-kbat-text').innerText = `${kbatPct}% (${kbatCorrect}/${kbatQuestions.length})`;
+      document.getElementById('analysis-kbat-bar').style.width = `${kbatPct}%`;
+
+      const certEligibleBox = document.getElementById('cert-eligible-box');
+      const certIneligibleBox = document.getElementById('cert-ineligible-box');
+
+      if (scoreFirstAttempt >= 16) {
+        certEligibleBox.classList.remove('hidden');
+        certIneligibleBox.classList.add('hidden');
+      } else {
+        certEligibleBox.classList.add('hidden');
+        certIneligibleBox.classList.remove('hidden');
+      }
+
+      let levelTitle = "";
+      let encouragementMsg = "";
+
+      if (percentage >= 80) {
+        levelTitle = "🏆 CEMERLANG WIRA MERDEKA";
+        encouragementMsg = "Syabas dan tahniah! Anda mempunyai pengetahuan sejarah yang luar biasa gemilang serta semangat patriotisme yang amat tinggi. Anda LAYAK menerima Sijil Pencapaian!";
+        
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 140, spread: 90, origin: { y: 0.6 } });
+        }
+      } else if (percentage >= 65) {
+        levelTitle = "🌟 SANGAT BAIK - PEJUANG ILMU";
+        encouragementMsg = "Pencapaian yang sangat baik! Anda memahami dengan jelas sejarah dan simbol kedaulatan negara. Cuba sekali lagi untuk mencapai 16/20 bagi mendapatkan sijil pencapaian!";
+      } else if (percentage >= 50) {
+        levelTitle = "👍 BAIK - WIRA HARAPAN";
+        encouragementMsg = "Usaha yang bagus! Anda sudah menguasai asas pengetahuan kemerdekaan negara. Cuba kuiz ini sekali lagi untuk mendapatkan markah 16/20 dan menjana sijil!";
+      } else {
+        levelTitle = "💪 PERLU USAHA LAGI - SEMANGAT BOLEH!";
+        encouragementMsg = "Jangan putus asa! Cuba kuiz ini sekali lagi untuk meningkatkan pengetahuan dan capai sasaran 16/20 untuk sijil pencapaian anda.";
+      }
+
+      document.getElementById('res-level-title').innerText = levelTitle;
+      document.getElementById('res-encouragement').innerText = encouragementMsg;
+
+      buildReviewList();
+      lucide.createIcons();
+    }
+
+    function buildReviewList() {
+      const reviewContainer = document.getElementById('review-list');
+      reviewContainer.innerHTML = '';
+
+      userAnswers.forEach((ans, index) => {
+        const isCorrect = ans.isCorrect;
+        const itemDiv = document.createElement('div');
+        itemDiv.className = "pt-3 pb-2";
+
+        itemDiv.innerHTML = `
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-slate-500">Soalan ${index + 1} (${ans.level})</span>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'} flex items-center gap-1">
+              <i data-lucide="${isCorrect ? 'check-circle' : 'x-circle'}" class="w-3.5 h-3.5"></i>
+              ${ans.status}
+            </span>
+          </div>
+          <p class="font-bold text-slate-800 text-sm sm:text-base">${ans.questionText}</p>
+        `;
+        reviewContainer.appendChild(itemDiv);
+      });
+
+      lucide.createIcons();
+    }
+
+    function generateCertificate() {
+      playSound('click');
+      let nameInput = document.getElementById('student-name').value.trim();
+      
+      // Jika nama tidak diisi, sediakan teks gantian supaya sijil tidak kosong
+      if (!nameInput) {
+        nameInput = "Ahmad / Murid Cemerlang";
+      }
+
+      const totalQuestions = quizQuestions.length > 0 ? quizQuestions.length : 20;
+      const currentScore = scoreFirstAttempt > 0 ? scoreFirstAttempt : 18; // Nilai lalai untuk ujian
+      const percentage = Math.round((currentScore / totalQuestions) * 100);
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const dateString = today.toLocaleDateString('ms-MY', options);
+
+      // Kemas kini SEMUA elemen paparan nama dan markah serentak
+      document.getElementById('cert-student-name').innerText = nameInput;
+      document.getElementById('cert-score-display').innerText = `${currentScore} / ${totalQuestions}`;
+      document.getElementById('cert-percent-display').innerText = `${percentage}%`;
+      document.getElementById('cert-date').innerText = dateString;
+
+      // Kemas kini elemen pada templat imej khas
+      document.getElementById('cert-img-student-name').innerText = nameInput;
+      document.getElementById('cert-img-score').innerText = `MARKAH: ${currentScore} / ${totalQuestions} (${percentage}%)`;
+
+      const defaultLayout = document.getElementById('cert-default-layout');
+      const imageLayout = document.getElementById('cert-image-layout');
+
+      if (certDisplayMode === 'image' && CUSTOM_CERT_IMAGE_URL) {
+        defaultLayout.classList.add('hidden');
+        imageLayout.classList.remove('hidden');
+
+        imageLayout.style.backgroundImage = `url('${CUSTOM_CERT_IMAGE_URL}')`;
+      } else {
+        defaultLayout.classList.remove('hidden');
+        imageLayout.classList.add('hidden');
+      }
+
+      document.getElementById('cert-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeCertModal() {
+      playSound('click');
+      document.getElementById('cert-modal').classList.add('hidden');
+    }
+
+    function toggleReviewModal() {
+      playSound('click');
+      const modal = document.getElementById('review-modal');
+      modal.classList.toggle('hidden');
+    }
+
+    function restartQuiz() {
+      startQuiz();
+    }
+
+    window.onload = function() {
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>
